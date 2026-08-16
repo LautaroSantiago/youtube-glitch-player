@@ -14,17 +14,18 @@ Reproductor web de listas de reproducción de YouTube con interfaz digital glitc
 ## 🎵 Características principales
 
 - **Reproducción desde YouTube**: Ingresa links de YouTube (videos completos, shorts o playlists) y reproduce el audio directamente en el navegador
+- **Carga de metadatos**: El sistema extrae automáticamente título, autor e imagen de portada de cada video (⚠️ *la carga inicial tarda algunos segundos mientras se obtienen los metadatos*)
 - **Gestión de listas**: Crea múltiples listas de reproducción con nombres personalizados
-- **Reordenamiento dinámico**: Arrastra y suelta temas dentro de la cola para reorganizar el orden
+- **Reordenamiento dinámico**: Arrastra y suelta temas dentro de la cola para reorganizar el orden, o usa los botones ▲/▼
 - **Exportación/Importación**: Descarga tus listas como archivos JSON y cárgalas cuando quieras recuperarlas
-- **Controles de reproducción**: Play/Pausa, anterior, siguiente, bucle (apagado → lista completa → tema actual)
+- **Controles de reproducción**: Play/Pausa, anterior, siguiente, bucle (apagado → lista completa → tema actual), repetición de tema único (⟲1) y shuffle aleatorio (🔀)
 - **Barra de progreso**: Visualiza duración, tiempo actual y salta a cualquier punto del tema
 - **Control de volumen**: Ajusta el nivel de sonido desde 0 a 100%
-- **Metadatos automáticos**: Extrae título, autor e imagen de portada desde cada link
 - **Portadas visuales**: Muestra la miniatura de YouTube con efectos glitch y pixelado
 - **Persistencia local**: Guarda automáticamente tus listas en el navegador (localStorage)
 - **Diseño responsive**: Interfaz adaptable a diferentes tamaños de pantalla
-- **Estética glitch**: Tipografía digital robótica, degradados glitcheados y animaciones pixeladas
+- **Estética glitch**: Tipografía digital robótica, degradados glitcheados, scanlines y animaciones pixeladas
+- **Indicador de carga**: Muestra cuando está descargando los metadatos del video desde YouTube
 
 ---
 
@@ -38,7 +39,8 @@ Abre `index.html` directamente en tu navegador. No requiere instalación ni serv
 1. **Agregar temas**
    - Copia un link de YouTube en el campo superior
    - Presiona Enter o haz clic en "agregar"
-   - El sistema extrae automáticamente título, autor y portada
+   - El sistema extrae automáticamente título, autor y portada (*esto tarda unos segundos mientras se descargan los metadatos*)
+   - Verás un indicador de carga en la esquina superior derecha del header mientras se procesa
 
 2. **Crear listas**
    - Ingresa el nombre en la barra izquierda
