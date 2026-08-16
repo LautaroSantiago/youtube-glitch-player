@@ -19,7 +19,65 @@
   --texto:#d9f0e0;
   --texto-dim:#6f8a76;
   --borde:#20301f;
+  --font-scale:1;
 }
+/* ---------- ASCII Hacker mode ---------- */
+body.ascii-mode::before{
+  content:"";position:fixed;top:0;left:0;width:100%;height:100%;
+  background-image:
+    repeating-linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(156,138,164,0.04) 4px, 
+      transparent 8px, 
+      transparent 40px
+    );
+  z-index:-1;
+  pointer-events:none;
+  animation:ascii-rain 2s infinite linear;
+}
+body.ascii-mode::after{
+  content:"░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█";
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  font-family:'VT323',monospace;font-size:28px;color:rgba(156,138,164,0.08);
+  line-height:1.5;overflow:hidden;white-space:pre-wrap;word-wrap:break-word;
+  z-index:-1;pointer-events:none;
+  mix-blend-mode:multiply;
+}
+@keyframes ascii-rain{
+  0%{background-position:0 0;}
+  100%{background-position:0 200px;}
+}
+.glitch.ascii-mode::before,
+.glitch.ascii-mode::after{
+  animation:ascii-glitch 0.15s infinite;
+}
+@keyframes ascii-glitch{
+  0%,100%{content:attr(data-text);}
+  10%{content:attr(data-ascii-1);}
+  20%{content:attr(data-ascii-2);}
+  30%{content:attr(data-ascii-3);}
+  40%{content:attr(data-ascii-4);}
+  50%{content:attr(data-ascii-5);}
+  60%{content:attr(data-ascii-6);}
+  70%{content:attr(data-ascii-7);}
+  80%{content:attr(data-ascii-8);}
+  90%{content:attr(data-ascii-9);}
+}
+body.animations-disabled{
+  animation:none !important;
+}
+body.animations-disabled *{
+  animation:none !important;
+}
+body.animations-disabled::before,
+body.animations-disabled::after{
+  animation:none !important;
+}
+body.animations-disabled .glitch::before,
+body.animations-disabled .glitch::after{
+  animation:none !important;
+}
+/* ---------- end ASCII Hacker mode ---------- */
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
   background:var(--bg-void);
@@ -28,37 +86,48 @@ body{
   min-height:100vh;
   overflow-x:hidden;
   background-image:
-    repeating-linear-gradient(0deg, rgba(57,255,122,0.04) 0px, rgba(57,255,122,0.04) 1px, transparent 1px, transparent 2px),
-    repeating-linear-gradient(90deg, rgba(156,138,164,0.03) 0px, rgba(156,138,164,0.03) 1px, transparent 1px, transparent 3px),
-    repeating-linear-gradient(45deg, rgba(153,102,204,0.02) 0px, rgba(153,102,204,0.02) 2px, transparent 2px, transparent 4px),
-    repeating-linear-gradient(-45deg, rgba(142,69,133,0.02) 0px, rgba(142,69,133,0.02) 2px, transparent 2px, transparent 4px);
-  animation:glitch-bg 8s infinite;
+    repeating-linear-gradient(0deg, rgba(57,255,122,0.03) 0px, rgba(57,255,122,0.03) 6px, transparent 6px, transparent 12px),
+    repeating-linear-gradient(90deg, rgba(156,138,164,0.025) 0px, rgba(156,138,164,0.025) 8px, transparent 8px, transparent 16px),
+    repeating-linear-gradient(45deg, rgba(153,102,204,0.025) 0px, rgba(153,102,204,0.025) 10px, transparent 10px, transparent 20px),
+    repeating-linear-gradient(-45deg, rgba(142,69,133,0.025) 0px, rgba(142,69,133,0.025) 10px, transparent 10px, transparent 20px),
+    repeating-linear-gradient(0deg, rgba(57,255,122,0.02) 0px, rgba(57,255,122,0.02) 3px, rgba(156,138,164,0.02) 3px, rgba(156,138,164,0.02) 6px);
+  animation:glitch-bg 6s infinite;
 }
 @keyframes glitch-bg{
   0%,100%{background-position:0 0;}
-  50%{background-position:2px -1px;}
+  50%{background-position:8px -4px;}
 }
 body::before{
   content:"";position:fixed;top:0;left:0;width:100%;height:100%;
   background:
-    repeating-linear-gradient(0deg, rgba(0,0,0,.15) 0px, rgba(0,0,0,.15) 1px, transparent 1px, transparent 3px),
-    repeating-linear-gradient(0deg, rgba(57,255,122,0.05) 0px, rgba(57,255,122,0.05) 2px, transparent 2px, transparent 4px, transparent 4px, transparent 6px);
+    repeating-linear-gradient(0deg, rgba(0,0,0,.28) 0px, rgba(0,0,0,.28) 4px, transparent 4px, transparent 8px),
+    repeating-linear-gradient(0deg, rgba(57,255,122,0.02) 0px, rgba(57,255,122,0.02) 8px, transparent 8px, transparent 16px, transparent 16px, transparent 24px),
+    repeating-linear-gradient(90deg, rgba(153,102,204,0.015) 0px, rgba(153,102,204,0.015) 12px, transparent 12px, transparent 24px);
   pointer-events:none;z-index:-1;mix-blend-mode:multiply;
-  animation:interference 0.15s infinite;
+  animation:interference 0.1s infinite;
 }
 @keyframes interference{
-  0%{transform:translate(0);}
-  20%{transform:translate(-1px, 1px);}
-  40%{transform:translate(1px, -1px);}
-  60%{transform:translate(-1px, -1px);}
-  80%{transform:translate(1px, 1px);}
-  100%{transform:translate(0);}
+  0%{transform:translate(0, 0);}
+  10%{transform:translate(-4px, 3px);}
+  20%{transform:translate(4px, -3px);}
+  30%{transform:translate(-3px, -4px);}
+  40%{transform:translate(3px, 4px);}
+  50%{transform:translate(-2px, 2px);}
+  60%{transform:translate(2px, -2px);}
+  70%{transform:translate(-4px, -3px);}
+  80%{transform:translate(4px, 3px);}
+  90%{transform:translate(-1px, 1px);}
+  100%{transform:translate(0, 0);}
 }
 body::after{
   content:"";position:fixed;top:0;left:0;width:100%;height:100%;
-  background:radial-gradient(circle at 20% 50%, rgba(153,102,204,0.03) 0%, transparent 50%),
-             radial-gradient(circle at 80% 80%, rgba(142,69,133,0.03) 0%, transparent 50%),
-             radial-gradient(circle at 40% 20%, rgba(57,255,122,0.02) 0%, transparent 50%);
+  background:
+    repeating-linear-gradient(90deg, rgba(153,102,204,0.02) 0px, rgba(153,102,204,0.02) 14px, transparent 14px, transparent 28px),
+    repeating-linear-gradient(0deg, rgba(142,69,133,0.02) 0px, rgba(142,69,133,0.02) 12px, transparent 12px, transparent 24px),
+    repeating-linear-gradient(45deg, rgba(57,255,122,0.015) 0px, rgba(57,255,122,0.015) 16px, transparent 16px, transparent 32px),
+    radial-gradient(circle at 20% 50%, rgba(153,102,204,0.015) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(142,69,133,0.015) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(57,255,122,0.01) 0%, transparent 50%);
   pointer-events:none;z-index:-1;
   mix-blend-mode:screen;
 }
@@ -118,13 +187,17 @@ body::after{
 /* ---------- layout ---------- */
 .app{
   display:grid;
-  grid-template-columns:260px 1fr 360px;
-  grid-template-rows:auto 1fr;
+  grid-template-columns:260px 1fr;
+  grid-template-rows:auto 1fr auto;
   min-height:100vh;
+  transition:grid-template-columns 0.3s ease;
+}
+.app.queue-visible{
+  grid-template-columns:260px 1fr 240px;
 }
 @media (max-width:980px){
   .app{grid-template-columns:1fr;}
-  .sidebar,.queue{border:none;border-top:1px solid var(--lila);}
+  .sidebar{border:none;border-top:1px solid var(--lila);}
 }
 header{
   grid-column:1/-1;
@@ -139,6 +212,16 @@ header h1{
   text-shadow:0 0 12px rgba(57,255,122,.5), 0 0 20px rgba(153,102,204,.3);
 }
 header .sub{font-size:14px;color:var(--lila);letter-spacing:1px;}
+header .controls{display:flex;align-items:center;gap:8px;max-width:120px;}
+header .control-btn{
+  background:rgba(156,138,164,0.7);border:1px solid var(--lila);color:var(--verde);
+  width:28px;height:28px;cursor:pointer;border-radius:1px;
+  display:flex;align-items:center;justify-content:center;font-size:13px;
+  transition:.15s;flex-shrink:0;
+}
+header .control-btn:hover{background:rgba(156,138,164,0.9);box-shadow:0 0 6px rgba(156,138,164,.4);}
+header .control-btn:active{animation:glitch-pulse 0.2s;}
+header .control-btn.active{background:rgba(57,255,122,0.2);border-color:var(--verde);color:var(--verde);}
 header .loading{display:none;align-items:center;gap:8px;font-size:12px;color:var(--amatista);text-shadow:0 0 6px rgba(153,102,204,.3);}
 header .loading.active{display:flex;}
 header .loading::before{
@@ -152,6 +235,8 @@ header .loading::before{
   padding:16px;
   display:flex;flex-direction:column;gap:10px;
   background:linear-gradient(180deg, var(--bg-panel), rgba(14,20,15,0.8));
+  min-height:100vh;
+  box-shadow:inset -2px 0 0 var(--lila);
 }
 .sidebar h2{font-size:13px;color:var(--lila);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
 .pl-new{
@@ -177,6 +262,34 @@ header .loading::before{
 .pl-list li .del{opacity:0;color:var(--ciruela);font-size:13px;cursor:pointer;}
 .pl-list li:hover .del{opacity:1;}
 .io-buttons{display:flex;gap:6px;margin-top:auto;padding-top:10px;border-top:1px solid var(--lila);}
+.history-toggle{width:100%;margin-top:6px;}
+.history-container{
+  max-height:0;overflow:hidden;transition:max-height 0.3s ease;
+  border-top:1px solid var(--ciruela);margin-top:12px;padding-top:12px;
+}
+.history-container.active{max-height:600px;}
+.history-stats{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;padding:10px;background:rgba(142,69,133,0.1);border:1px solid var(--ciruela);border-radius:2px;}
+.stat-item{font-size:11px;color:var(--lila);}
+.stat-item span{color:var(--texto-dim);}
+.stat-item strong{color:var(--ciruela);}
+.history-list{max-height:400px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;}
+.history-item{
+  display:flex;justify-content:space-between;align-items:center;gap:6px;
+  padding:8px;background:rgba(18,26,19,0.6);border:1px solid var(--borde);border-radius:2px;
+  font-size:12px;transition:.15s;cursor:pointer;
+}
+.history-item:hover{border-color:var(--ciruela);background:rgba(142,69,133,0.08);}
+.h-info{flex:1;min-width:0;}
+.h-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--verde);font-size:11px;}
+.h-meta{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--lila);font-size:10px;margin-top:2px;}
+.copy-btn{
+  background:none;border:1px solid var(--ciruela);color:var(--ciruela);
+  width:24px;height:24px;padding:0;font-size:12px;cursor:pointer;border-radius:1px;
+  transition:.1s;flex-shrink:0;
+}
+.copy-btn:hover{background:rgba(142,69,133,0.2);box-shadow:0 0 4px rgba(142,69,133,0.4);}
+.copy-btn:active{animation:glitch-pulse 0.2s;}
+.no-history{padding:12px;text-align:center;color:var(--texto-dim);font-size:11px;}
 /* ---------- main player ---------- */
 main{
   padding:20px 32px 28px 32px;
@@ -188,12 +301,12 @@ main{
 }
 .add-bar input{flex:1;font-size:15px;padding:11px 12px;}
 .cover-wrap{
-  position:relative;width:300px;height:300px;
+  position:relative;width:420px;height:420px;
   border:2px solid var(--lila);
   background:var(--bg-panel-2);
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;
-  box-shadow:0 0 16px rgba(156,138,164,.2);
+  box-shadow:0 0 24px rgba(156,138,164,.3);
 }
 .cover-wrap img{
   width:100%;height:100%;object-fit:cover;
@@ -207,7 +320,7 @@ main{
   mix-blend-mode:multiply;
   pointer-events:none;
 }
-.cover-wrap .noimg{font-size:80px;color:var(--verde-dim);}
+.cover-wrap .noimg{font-size:120px;color:var(--verde-dim);}
 .track-info{text-align:center;max-width:540px;}
 .track-info .title{font-size:22px;color:var(--verde);word-break:break-word;text-shadow:0 0 8px rgba(57,255,122,.2);}
 .track-info .author{font-size:15px;color:var(--lila);margin-top:6px;text-shadow:0 0 4px rgba(156,138,164,.2);}
@@ -236,23 +349,27 @@ main{
 .queue{
   border-left:2px solid var(--lila);
   background:linear-gradient(180deg, rgba(14,20,15,0.8), var(--bg-panel));
-  padding:16px;display:flex;flex-direction:column;gap:10px;
+  padding:12px;display:flex;flex-direction:column;gap:8px;
+  display:none;
+}
+.app.queue-visible .queue{
+  display:flex;
 }
 .queue h2{font-size:13px;color:var(--amatista);letter-spacing:1px;text-transform:uppercase;text-shadow:0 0 6px rgba(153,102,204,.2);}
 .queue ul{list-style:none;display:flex;flex-direction:column;gap:5px;overflow-y:auto;}
 .queue li{
-  display:flex;align-items:center;gap:8px;
-  padding:8px;border:1px solid var(--borde);border-radius:1px;
-  cursor:grab;font-size:13px;background:rgba(18,26,19,0.6);
+  display:flex;align-items:center;gap:6px;
+  padding:5px;border:1px solid var(--borde);border-radius:1px;
+  cursor:grab;font-size:12px;background:rgba(18,26,19,0.6);
   transition:.15s;
 }
 .queue li:hover{background:rgba(156,138,164,0.08);border-color:var(--lila);}
 .queue li.playing{border-color:var(--verde-dim);color:var(--verde);background:rgba(57,255,122,.08);box-shadow:0 0 8px rgba(57,255,122,.2);}
 .queue li.dragover{border-color:var(--amatista);background:rgba(153,102,204,.12);}
-.queue li img{width:34px;height:34px;object-fit:cover;image-rendering:pixelated;flex-shrink:0;border:1px solid var(--lila);}
+.queue li img{width:30px;height:30px;object-fit:cover;image-rendering:pixelated;flex-shrink:0;border:1px solid var(--lila);}
 .queue li .meta{flex:1;min-width:0;}
-.queue li .meta .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.queue li .meta .a{font-size:10px;color:var(--lila);}
+.queue li .meta .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;}
+.queue li .meta .a{font-size:9px;color:var(--lila);}
 .queue li .action{display:flex;gap:4px;opacity:0;}
 .queue li:hover .action{opacity:1;}
 .queue li .action button{
@@ -263,6 +380,43 @@ main{
 .queue li .action button:hover{background:rgba(142,69,133,.2);box-shadow:0 0 4px rgba(142,69,133,.4);}
 .queue li .action button:active{animation:glitch-pulse 0.2s;}
 .queue li .rm{color:var(--ciruela);cursor:pointer;font-size:14px;}
+/* ---------- queue toggle ---------- */
+.queue-toggle{
+  position:fixed;right:0;top:50%;transform:translateY(-50%);
+  background:rgba(156,138,164,0.9);border:2px solid var(--lila);color:var(--verde);
+  width:32px;height:48px;cursor:pointer;z-index:999;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  transition:.2s;box-shadow:0 0 12px rgba(156,138,164,.4);
+}
+.queue-toggle:hover{background:rgba(156,138,164,1);transform:translateY(-50%) scale(1.1);}
+.queue-toggle.active{right:240px;}
+/* ---------- sidebar toggle ---------- */
+.sidebar-toggle{
+  position:fixed;left:0;top:50%;transform:translateY(-50%);
+  background:rgba(156,138,164,0.9);border:2px solid var(--lila);color:var(--verde);
+  width:32px;height:48px;cursor:pointer;z-index:999;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  transition:.2s;box-shadow:0 0 12px rgba(156,138,164,.4);
+  opacity:0;pointer-events:none;
+}
+.app.sidebar-hidden .sidebar-toggle{opacity:1;pointer-events:all;}
+.sidebar-toggle:hover{background:rgba(156,138,164,1);transform:translateY(-50%) scale(1.1);}
+.app.sidebar-hidden .sidebar-toggle.active{left:0;}
+/* ---------- nav controls */
+.nav-controls{
+  display:none;
+}
+.nav-track{
+  display:flex;align-items:center;gap:12px;
+  padding:10px;border:1px solid var(--borde);border-radius:2px;
+  background:rgba(18,26,19,0.6);flex:1;max-width:320px;
+}
+.nav-track.empty{justify-content:center;color:var(--lila);font-size:13px;font-weight:bold;letter-spacing:2px;}
+.nav-track img{width:60px;height:60px;object-fit:cover;border:1px solid var(--lila);image-rendering:pixelated;flex-shrink:0;}
+.nav-track .info{flex:1;min-width:0;}
+.nav-track .title{color:var(--verde);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-track .author{color:var(--lila);font-size:11px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-controls > div:last-child{margin-left:auto;}
 /* ---------- generic ---------- */
 input[type=text],input[type=url]{
   background:rgba(18,26,19,0.7);border:1px solid var(--lila);color:var(--texto);
@@ -300,6 +454,11 @@ button{font-family:inherit;}
       <h1 class="glitch" data-text="YT // GLITCH PLAYER">YT // GLITCH PLAYER</h1>
       <span class="sub">pegá un link · armá tu lista · exportala</span>
     </div>
+    <div class="controls">
+      <button class="control-btn" id="btnFontSmaller" title="Reducir tamaño de letra">−</button>
+      <button class="control-btn" id="btnFontLarger" title="Aumentar tamaño de letra">+</button>
+      <button class="control-btn" id="btnToggleAnimations" title="Detener animaciones (menos RAM)">◊</button>
+    </div>
     <div class="loading" id="loadingInd">cargando música...</div>
   </header>
 
@@ -315,6 +474,8 @@ button{font-family:inherit;}
       <button class="btn" id="btnImport" title="Cargar una lista desde archivo">↑ importar</button>
       <input type="file" id="fileImport" accept="application/json" style="display:none">
     </div>
+    <button class="btn accent" id="btnHistoryToggle" style="width:100%;">📊 historial</button>
+    <div class="history-container" id="historyContainer"></div>
   </aside>
 
   <main>
@@ -356,9 +517,17 @@ button{font-family:inherit;}
   </main>
 
   <aside class="queue">
-    <h2 id="queueTitle">Cola</h2>
     <ul id="queueList"></ul>
   </aside>
+
+  <div class="queue-toggle" id="queueToggle">▶</div>
+
+  <div class="sidebar-toggle" id="sidebarToggle">◀</div>
+
+  <div class="nav-controls">
+    <div class="nav-track empty" id="prevTrack">[START]</div>
+    <div class="nav-track empty" id="nextTrack">[END]</div>
+  </div>
 </div>
 
 <div id="yt-hidden"><div id="ytPlayer"></div></div>
@@ -374,7 +543,14 @@ let state = {
   index: -1,            // indice del tema sonando dentro de la lista activa
   loop: 'none',         // none | one | all
   shuffled: false,      // si está en modo shuffle (no se guarda)
-  shuffleOrder: []      // orden shuffled (no se guarda)
+  shuffleOrder: [],     // orden shuffled (no se guarda)
+  history: [],          // [ {videoId, title, author, url, thumb, plays: [{timestamp, duration}]} ]
+  stats: {
+    totalPlays: 0,
+    totalMinutes: 0,
+    topArtist: null,
+    lastPlayed: null
+  }
 };
 
 function loadState(){
@@ -382,15 +558,21 @@ function loadState(){
     const raw = localStorage.getItem(LS_KEY);
     if(raw) state.playlists = JSON.parse(raw);
   }catch(e){}
+  try{
+    const hist = localStorage.getItem('ytglitch_history_v1');
+    if(hist) state.history = JSON.parse(hist);
+  }catch(e){}
   if(Object.keys(state.playlists).length === 0){
     state.playlists['Mi lista'] = [];
   }
   state.current = localStorage.getItem(LS_CUR) || Object.keys(state.playlists)[0];
   if(!state.playlists[state.current]) state.current = Object.keys(state.playlists)[0];
+  updateStats();
 }
 function saveState(){
   localStorage.setItem(LS_KEY, JSON.stringify(state.playlists));
   localStorage.setItem(LS_CUR, state.current);
+  localStorage.setItem('ytglitch_history_v1', JSON.stringify(state.history));
 }
 
 /* ==================== utilidades youtube ==================== */
@@ -445,7 +627,6 @@ function renderPlaylists(){
     });
     ul.appendChild(li);
   });
-  document.getElementById('queueTitle').textContent = 'Cola — ' + state.current;
 }
 
 function renderQueue(){
@@ -515,6 +696,31 @@ function renderQueue(){
     });
     ul.appendChild(li);
   });
+  updateNavControls();
+}
+
+function updateNavControls(){
+  const tracks = state.playlists[state.current] || [];
+  const prev = document.getElementById('prevTrack');
+  const next = document.getElementById('nextTrack');
+  
+  if(state.index > 0){
+    const p = tracks[state.index - 1];
+    prev.innerHTML = `<img src="${p.thumb}" alt=""><div class="info"><div class="title">${escapeHtml(p.title)}</div><div class="author">${escapeHtml(p.author||'')}</div></div>`;
+    prev.classList.remove('empty');
+  } else {
+    prev.innerHTML = '[START]';
+    prev.classList.add('empty');
+  }
+  
+  if(state.index < tracks.length - 1){
+    const n = tracks[state.index + 1];
+    next.innerHTML = `<img src="${n.thumb}" alt=""><div class="info"><div class="title">${escapeHtml(n.title)}</div><div class="author">${escapeHtml(n.author||'')}</div></div>`;
+    next.classList.remove('empty');
+  } else {
+    next.innerHTML = '[END]';
+    next.classList.add('empty');
+  }
 }
 
 function renderNowPlaying(){
@@ -538,8 +744,195 @@ function renderAll(){
   renderNowPlaying();
 }
 
+document.getElementById('queueToggle').addEventListener('click', () => {
+  const app = document.querySelector('.app');
+  app.classList.toggle('queue-visible');
+  const toggle = document.getElementById('queueToggle');
+  toggle.textContent = app.classList.contains('queue-visible') ? '◀' : '▶';
+  toggle.classList.toggle('active');
+});
+
+/* ---------- controles de header ---------- */
+let fontScale = 1;
+const fontBase = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+document.getElementById('btnFontSmaller').addEventListener('click', () => {
+  fontScale = Math.max(0.8, fontScale - 0.1);
+  // Aplicar a elementos de texto general (no inputs, botones, etc)
+  document.querySelectorAll('h1, h2, p, span, div, li').forEach(el => {
+    if(!el.tagName.match(/INPUT|BUTTON/i) && !el.closest('input, button')){
+      el.style.fontSize = (fontBase * fontScale) + 'px';
+    }
+  });
+});
+
+document.getElementById('btnFontLarger').addEventListener('click', () => {
+  fontScale = Math.min(1.5, fontScale + 0.1);
+  document.querySelectorAll('h1, h2, p, span, div, li').forEach(el => {
+    if(!el.tagName.match(/INPUT|BUTTON/i) && !el.closest('input, button')){
+      el.style.fontSize = (fontBase * fontScale) + 'px';
+    }
+  });
+});
+
+let animationState = 0; // 0: normal, 1: ascii, 2: disabled
+document.getElementById('btnToggleAnimations').addEventListener('click', () => {
+  const body = document.body;
+  const btn = document.getElementById('btnToggleAnimations');
+  const glitchEl = document.querySelector('.glitch');
+  
+  animationState = (animationState + 1) % 3;
+  
+  body.classList.remove('animations-disabled', 'ascii-mode');
+  glitchEl?.classList.remove('ascii-mode');
+  btn.classList.remove('active');
+  btn.textContent = '◊';
+  
+  if(animationState === 1){
+    // ASCII Hacker mode
+    body.classList.add('ascii-mode');
+    glitchEl?.classList.add('ascii-mode');
+    generarAsciiData(glitchEl);
+    btn.textContent = '◆';
+    btn.style.color = 'var(--amatista)';
+  } else if(animationState === 2){
+    // Animaciones desactivadas
+    body.classList.add('animations-disabled');
+    btn.classList.add('active');
+    btn.textContent = '●';
+  } else {
+    // Normal
+    btn.style.color = 'var(--verde)';
+  }
+});
+
+function generarAsciiData(el){
+  if(!el) return;
+  const chars = '▓░▒╪╫╬█▓░▀▄▌▐░▒╋─│┼═║╔╗╚╝┌┐└┘├┤┬┴┼ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
+  const text = el.getAttribute('data-text') || '';
+  const len = text.length;
+  
+  for(let i = 1; i <= 9; i++){
+    let ascii = '';
+    for(let j = 0; j < len; j++){
+      ascii += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    el.setAttribute(`data-ascii-${i}`, ascii);
+  }
+}
+
 function escapeHtml(s){
   return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderHistory(){
+  const cont = document.getElementById('historyContainer');
+  if(!cont) return;
+  
+  let html = '<div class="history-stats">';
+  html += `<div class="stat-item"><span>Plays totales:</span> <strong>${state.stats.totalPlays}</strong></div>`;
+  html += `<div class="stat-item"><span>Minutos totales:</span> <strong>${state.stats.totalMinutes}</strong></div>`;
+  if(state.stats.topTrack){
+    html += `<div class="stat-item"><span>Top tema:</span> <strong>${escapeHtml(state.stats.topTrack.title)}</strong> (${state.stats.topTrack.plays}x)</div>`;
+  }
+  if(state.stats.topArtist){
+    html += `<div class="stat-item"><span>Top autor:</span> <strong>${escapeHtml(state.stats.topArtist.name)}</strong> (${state.stats.topArtist.plays}x)</div>`;
+  }
+  html += `<div class="stat-item"><span>Promedio/tema:</span> <strong>${getAverageMinutes()} min</strong></div>`;
+  html += '</div>';
+  
+  html += '<div class="history-list">';
+  if(state.history.length === 0){
+    html += '<div class="no-history">sin historial aún</div>';
+  } else {
+    const sorted = [...state.history].sort((a,b) => {
+      const aLast = a.plays[a.plays.length-1]?.timestamp || '';
+      const bLast = b.plays[b.plays.length-1]?.timestamp || '';
+      return new Date(bLast) - new Date(aLast);
+    });
+    
+    sorted.forEach((h, i) => {
+      const lastPlay = h.plays[h.plays.length-1]?.timestamp || '';
+      const lastDate = lastPlay ? new Date(lastPlay).toLocaleDateString('es-AR') : '';
+      html += `<div class="history-item" data-vid="${h.videoId}">
+        <div class="h-info">
+          <div class="h-title">${escapeHtml(h.title)}</div>
+          <div class="h-meta">${escapeHtml(h.author)} • ${h.plays.length}x • ${lastDate}</div>
+        </div>
+        <button class="copy-btn" data-url="${h.url}" title="Copiar link">📋</button>
+      </div>`;
+    });
+  }
+  html += '</div>';
+  
+  cont.innerHTML = html;
+  
+  // Event listeners para copiar
+  cont.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const url = btn.dataset.url;
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = '✓';
+        setTimeout(() => btn.textContent = '📋', 1500);
+      });
+      btn.classList.add('glitch-pulse');
+      setTimeout(() => btn.classList.remove('glitch-pulse'), 350);
+    });
+  });
+}
+
+function addToHistory(videoId, title, author, url, thumb, duration){
+  // Buscar si ya existe en el historial
+  let entry = state.history.find(h => h.videoId === videoId);
+  if(!entry){
+    entry = { videoId, title, author, url, thumb, plays: [] };
+    state.history.push(entry);
+  }
+  // Agregar play con timestamp
+  entry.plays.push({ timestamp: new Date().toISOString(), duration: duration || 0 });
+  updateStats();
+  saveState();
+}
+
+function updateStats(){
+  const totalPlays = state.history.reduce((sum, h) => sum + h.plays.length, 0);
+  const totalMinutes = state.history.reduce((sum, h) => sum + h.plays.reduce((s, p) => s + (p.duration || 0), 0), 0);
+  
+  state.stats.totalPlays = totalPlays;
+  state.stats.totalMinutes = Math.floor(totalMinutes);
+  
+  // Top tema
+  if(state.history.length > 0){
+    const topTrack = state.history.reduce((prev, curr) => curr.plays.length > prev.plays.length ? curr : prev);
+    state.stats.topTrack = { title: topTrack.title, plays: topTrack.plays.length };
+  }
+  
+  // Top autor
+  const authorStats = {};
+  state.history.forEach(h => {
+    if(!authorStats[h.author]) authorStats[h.author] = 0;
+    authorStats[h.author] += h.plays.length;
+  });
+  if(Object.keys(authorStats).length > 0){
+    const topAut = Object.entries(authorStats).reduce((a, b) => a[1] > b[1] ? a : b);
+    state.stats.topArtist = { name: topAut[0], plays: topAut[1] };
+  }
+  
+  // Último reproducido
+  if(state.history.length > 0){
+    const allPlays = state.history.flatMap(h => h.plays.map(p => ({...p, title: h.title})));
+    if(allPlays.length > 0){
+      const last = allPlays.reduce((a, b) => new Date(a.timestamp) > new Date(b.timestamp) ? a : b);
+      state.stats.lastPlayed = last;
+    }
+  }
+}
+
+function getAverageMinutes(){
+  if(state.history.length === 0) return 0;
+  const totalMin = state.history.reduce((sum, h) => sum + h.plays.reduce((s, p) => s + (p.duration || 0), 0), 0);
+  return (totalMin / state.history.length).toFixed(1);
 }
 
 /* ==================== agregar temas / listas ==================== */
@@ -616,6 +1009,12 @@ document.getElementById('fileImport').addEventListener('change', (e) => {
   e.target.value = '';
 });
 
+document.getElementById('btnHistoryToggle').addEventListener('click', () => {
+  const cont = document.getElementById('historyContainer');
+  cont.classList.toggle('active');
+  renderHistory();
+});
+
 /* ==================== reproductor youtube (iframe api) ==================== */
 let ytPlayer = null;
 let ytReady = false;
@@ -659,8 +1058,14 @@ function playIndex(i){
   const tracks = state.playlists[state.current] || [];
   if(i < 0 || i >= tracks.length || !ytReady) return;
   state.index = i;
-  ytPlayer.loadVideoById(tracks[i].videoId);
+  const t = tracks[i];
+  ytPlayer.loadVideoById(t.videoId);
   ytPlayer.playVideo();
+  
+  // Agregar al historial cuando comienza la reproducción
+  const duration = ytPlayer.getDuration() || 0;
+  addToHistory(t.videoId, t.title, t.author, t.url, t.thumb, duration);
+  
   saveState();
   renderQueue();
   renderNowPlaying();
