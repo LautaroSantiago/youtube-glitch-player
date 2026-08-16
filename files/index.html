@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YT // GLITCH PLAYER</title>
+
+  <!-- Favicon SVG -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Google Fonts - Tipografía monoespaciada -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+
+  <!-- CSS Modular -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Header: Título + Controles -->
+    <header>
+      <div class="left">
+        <h1 class="glitch" data-text="YT // GLITCH PLAYER">YT // GLITCH PLAYER</h1>
+        <span class="sub">pegá un link · armá tu lista · exportala</span>
+      </div>
+      <div class="controls">
+        <button class="control-btn" id="btnFontSmaller" title="Reducir tamaño de letra">−</button>
+        <button class="control-btn" id="btnFontLarger" title="Aumentar tamaño de letra">+</button>
+        <button class="control-btn" id="btnToggleAnimations" title="Detener animaciones (menos RAM)">◊</button>
+      </div>
+      <div class="loading" id="loadingInd">cargando música...</div>
+    </header>
+
+    <!-- Sidebar Izquierda: Playlists -->
+    <aside class="sidebar">
+      <h2>Listas</h2>
+      <div class="pl-new">
+        <input type="text" id="newPlName" placeholder="nombre de la lista">
+        <button class="btn accent" id="btnNewPl">+</button>
+      </div>
+      <ul class="pl-list" id="plList"></ul>
+      <div class="io-buttons">
+        <button class="btn" id="btnExport" title="Descargar la lista actual como archivo">↓ exportar</button>
+        <button class="btn" id="btnImport" title="Cargar una lista desde archivo">↑ importar</button>
+        <input type="file" id="fileImport" accept="application/json" style="display:none">
+      </div>
+      <button class="btn accent" id="btnHistoryToggle" style="width:100%;">📊 historial</button>
+      <div class="history-container" id="historyContainer"></div>
+    </aside>
+
+    <!-- Main: Reproductor Central -->
+    <main>
+      <!-- Barra de agregar URLs -->
+      <div class="add-bar">
+        <input type="url" id="addUrl" placeholder="https://youtube.com/watch?v=...">
+        <button class="btn accent" id="addBtn">agregar</button>
+      </div>
+
+      <!-- Reproductor embebido (invisible) -->
+      <div id="player"></div>
+
+      <!-- Portada del tema -->
+      <div class="cover-wrap">
+        <span class="noimg">♪</span>
+      </div>
+
+      <!-- Información del tema actual -->
+      <div class="track-info">
+        <div class="title" id="trackTitle">sin tema seleccionado</div>
+        <div class="author" id="trackAuthor">—</div>
+      </div>
+
+      <!-- Barra de progreso -->
+      <div class="seek">
+        <span id="tCur">0:00</span>
+        <input type="range" id="seekBar" min="0" max="100" value="0">
+        <span id="tDur">0:00</span>
+      </div>
+
+      <!-- Controles de reproducción -->
+      <div class="controls">
+        <button id="btnPrev" title="Anterior">⏮</button>
+        <button class="play" id="btnPlay" title="Reproducir / Pausar">▶</button>
+        <button id="btnNext" title="Siguiente">⏭</button>
+        <button class="loop" id="btnLoop" title="Bucle">⟲</button>
+        <button id="btnOneshot" title="Repetir tema actual">⟲1</button>
+        <button id="btnShuffle" title="Desorden aleatorio (no se guarda)">🔀</button>
+      </div>
+
+      <!-- Control de volumen -->
+      <div class="vol">
+        vol
+        <input type="range" id="volBar" min="0" max="100" value="80">
+      </div>
+
+      <!-- Controles de navegación anterior/siguiente -->
+      <div class="nav-controls">
+        <div class="nav-section">
+          <div class="nav-label">[PREVIOUS]</div>
+          <div class="nav-track empty" id="prevTrack">[START]</div>
+        </div>
+        <div class="nav-section">
+          <div class="nav-label">[NEXT]</div>
+          <div class="nav-track empty" id="nextTrack">[END]</div>
+        </div>
+      </div>
+
+      <!-- Hint informativo -->
+      <div class="hint">
+        La reproducción usa el reproductor embebido de YouTube (audio + video oculto). 
+        El progreso se guarda solo en este navegador — exportá el archivo si querés llevarte la lista.
+      </div>
+    </main>
+
+    <!-- Sidebar Derecha: Cola de Reproducción -->
+    <aside class="queue">
+      <ul id="queueList"></ul>
+    </aside>
+  </div>
+
+  <!-- Botón flotante toggle Queue -->
+  <div class="queue-toggle" id="queueToggle">▶</div>
+
+  <!-- YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <!-- JavaScript Modular -->
+  <script src="js/state.js"></script>
+  <script src="js/youtube.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/controls.js"></script>
+
+  <!-- Inicialización -->
+  <script>
+    // Se ejecuta cuando todo está cargado
+    document.addEventListener('DOMContentLoaded', () => {
+      loadYouTubeAPI();
+      loadState();
+      renderPlaylists();
+      renderQueue();
+      initControls();
+    });
+  </script>
+</body>
+</html>

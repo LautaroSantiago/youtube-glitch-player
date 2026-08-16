@@ -1,0 +1,42 @@
+/* 
+ * YT // GLITCH PLAYER - CSS Variables
+ * Define la paleta de colores, tipografía y espaciado utilizado
+ * en toda la aplicación. Esto centraliza los valores para facilitar
+ * cambios globales de tema o ajustes visuales.
+ */
+
+:root {
+  /* Paleta de colores - Escala de grises base */
+  --bg-void: #070a08;           /* Fondo principal - negro puro con matiz verde */
+  --bg-panel: #0e140f;          /* Fondo de paneles secundarios */
+  --bg-panel-2: #121a13;        /* Fondo más claro para contraste */
+
+  /* Colores primarios - Verde neón */
+  --verde: #39ff7a;             /* Verde neón principal */
+  --verde-dim: #1e7a42;         /* Verde oscuro para bordes sutiles */
+
+  /* Acentos - Escala de morados */
+  --lila: #9C8AA4;              /* Lila polvoriento - bordes suave */
+  --amatista: #9966CC;          /* Amatista - acciones secundarias */
+  --ciruela: #8E4585;           /* Ciruela - énfasis adicional */
+
+  /* Tipografía */
+  --texto: #d9f0e0;             /* Texto principal */
+  --texto-dim: #6f8a76;         /* Texto secundario/atenuado */
+
+  /* Bordes y divisores */
+  --borde: #20301f;             /* Color de bordes sutiles */
+
+  /* Escala de fuente */
+  --font-scale: 1;
+}
+
+/*
+ * En modo ASCII Hacker, los pseudo-elementos ::before y ::after
+ * del body se superponen con estilos específicos que reemplazan
+ * la paleta. Estos valores se mantienen constantes.
+ */
+
+body.animations-disabled {
+  /* No requiere variables adicionales - solo desactiva animaciones */
+}

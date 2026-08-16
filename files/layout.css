@@ -1,0 +1,190 @@
+/*
+ * YT // GLITCH PLAYER - Layout Styles
+ * Define la estructura de grid principal, disposición de sidebars,
+ * main content, queue y controles. Usa CSS Grid para la distribución
+ * de alto nivel y Flexbox para alineación interna.
+ */
+
+/* Grid principal de la aplicación */
+.app {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  transition: grid-template-columns 0.3s ease;
+}
+
+/* Cuando la queue está visible, agrega columna derecha */
+.app.queue-visible {
+  grid-template-columns: 260px 1fr 240px;
+}
+
+/* Header - ocupa todo el ancho */
+header {
+  grid-column: 1 / -1;
+  padding: 16px 32px;
+  border-bottom: 2px solid var(--amatista);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: linear-gradient(
+    135deg, 
+    rgba(156, 138, 164, 0.1), 
+    rgba(142, 69, 133, 0.05)
+  );
+}
+
+/* Contenedor izquierdo del header (título + subtítulo) */
+header .left {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+/* Contenedor derecho del header (controles + indicador carga) */
+header .controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 120px;
+}
+
+/* Sidebar izquierda - lista de playlists */
+.sidebar {
+  border-right: 2px solid var(--lila);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: linear-gradient(
+    180deg, 
+    var(--bg-panel), 
+    rgba(14, 20, 15, 0.8)
+  );
+  min-height: 100vh;
+  box-shadow: inset -2px 0 0 var(--lila);
+}
+
+/* Main content - reproductor central */
+main {
+  padding: 20px 32px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  overflow-y: auto;
+}
+
+/* Sidebar derecha - cola de reproducción */
+.queue {
+  border-left: 2px solid var(--lila);
+  background: linear-gradient(
+    180deg, 
+    rgba(14, 20, 15, 0.8), 
+    var(--bg-panel)
+  );
+  padding: 12px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Mostrar queue solo cuando está visible */
+.app.queue-visible .queue {
+  display: flex;
+}
+
+/* Responsive - ocultar sidebar en pantallas pequeñas */
+@media (max-width: 980px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border: none;
+    border-top: 1px solid var(--lila);
+  }
+
+  .queue {
+    border: none;
+    border-top: 1px solid var(--lila);
+  }
+}
+
+/* Secciones de contenido dentro de main */
+.add-bar {
+  width: 100%;
+  max-width: 580px;
+  display: flex;
+  gap: 8px;
+}
+
+.cover-wrap {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  border: 2px solid var(--lila);
+  background: var(--bg-panel-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 24px rgba(156, 138, 164, 0.3);
+}
+
+.track-info {
+  text-align: center;
+  max-width: 540px;
+}
+
+.seek {
+  width: 100%;
+  max-width: 540px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--lila);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.vol {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--texto-dim);
+}
+
+/* Controles de navegación anterior/siguiente */
+.nav-controls {
+  width: 100%;
+  max-width: 540px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.nav-track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid var(--borde);
+  border-radius: 2px;
+  background: rgba(18, 26, 19, 0.6);
+  min-height: 60px;
+}

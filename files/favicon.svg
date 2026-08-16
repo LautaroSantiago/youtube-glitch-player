@@ -1,0 +1,32 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo -->
+  <rect width="256" height="256" fill="#070a08"/>
+  
+  <!-- Marco glitch lila -->
+  <rect x="8" y="8" width="240" height="240" fill="none" stroke="#9C8AA4" stroke-width="3"/>
+  <rect x="10" y="10" width="236" height="236" fill="none" stroke="#9966CC" stroke-width="1" opacity="0.6"/>
+  
+  <!-- Nota musical - línea vertical izquierda -->
+  <line x1="85" y1="60" x2="85" y2="160" stroke="#39ff7a" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Nota musical - línea vertical derecha -->
+  <line x1="140" y1="80" x2="140" y2="180" stroke="#39ff7a" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Nota musical - círculo izquierdo -->
+  <circle cx="75" cy="170" r="18" fill="#39ff7a"/>
+  
+  <!-- Nota musical - círculo derecho -->
+  <circle cx="130" cy="190" r="18" fill="#39ff7a"/>
+  
+  <!-- Onda conectora -->
+  <path d="M 95 100 Q 120 85 140 80" stroke="#39ff7a" stroke-width="6" fill="none" stroke-linecap="round"/>
+  
+  <!-- Efecto glitch - rectángulo superpuesto transparente -->
+  <rect x="70" y="55" width="90" height="160" fill="#9966CC" opacity="0.08"/>
+  
+  <!-- Scanlines sutiles -->
+  <line x1="20" y1="50" x2="236" y2="50" stroke="#39ff7a" stroke-width="1" opacity="0.15"/>
+  <line x1="20" y1="100" x2="236" y2="100" stroke="#39ff7a" stroke-width="1" opacity="0.15"/>
+  <line x1="20" y1="150" x2="236" y2="150" stroke="#39ff7a" stroke-width="1" opacity="0.15"/>
+  <line x1="20" y1="200" x2="236" y2="200" stroke="#39ff7a" stroke-width="1" opacity="0.15"/>
+</svg>

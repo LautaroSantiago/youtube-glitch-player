@@ -1,0 +1,221 @@
+/*
+ * YT // GLITCH PLAYER - Base Styles
+ * Estilos fundamentales: reset, tipografía, paleta de fondo,
+ * y comportamiento general del documento. Incluye scanlines
+ * animadas y efectos de interferencia glitch.
+ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-void);
+  color: var(--texto);
+  font-family: 'Share Tech Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  /* Gradientes de fondo - líneas verticales y diagonales */
+  background-image:
+    repeating-linear-gradient(
+      0deg, 
+      rgba(57, 255, 122, 0.03) 0px, 
+      rgba(57, 255, 122, 0.03) 6px, 
+      transparent 6px, 
+      transparent 12px
+    ),
+    repeating-linear-gradient(
+      90deg, 
+      rgba(156, 138, 164, 0.025) 0px, 
+      rgba(156, 138, 164, 0.025) 8px, 
+      transparent 8px, 
+      transparent 16px
+    ),
+    repeating-linear-gradient(
+      45deg, 
+      rgba(153, 102, 204, 0.025) 0px, 
+      rgba(153, 102, 204, 0.025) 10px, 
+      transparent 10px, 
+      transparent 20px
+    ),
+    repeating-linear-gradient(
+      -45deg, 
+      rgba(142, 69, 133, 0.025) 0px, 
+      rgba(142, 69, 133, 0.025) 10px, 
+      transparent 10px, 
+      transparent 20px
+    );
+
+  animation: glitch-bg 6s infinite;
+}
+
+/*
+ * Pseudo-elemento ::before del body crea las scanlines animadas
+ * que se desplazan constantemente, simulando interferencia de CRT.
+ */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background:
+    repeating-linear-gradient(
+      0deg, 
+      rgba(0, 0, 0, 0.28) 0px, 
+      rgba(0, 0, 0, 0.28) 4px, 
+      transparent 4px, 
+      transparent 8px
+    ),
+    repeating-linear-gradient(
+      0deg, 
+      rgba(57, 255, 122, 0.02) 0px, 
+      rgba(57, 255, 122, 0.02) 8px, 
+      transparent 8px, 
+      transparent 16px, 
+      transparent 16px, 
+      transparent 24px
+    ),
+    repeating-linear-gradient(
+      90deg, 
+      rgba(153, 102, 204, 0.015) 0px, 
+      rgba(153, 102, 204, 0.015) 12px, 
+      transparent 12px, 
+      transparent 24px
+    );
+
+  pointer-events: none;
+  z-index: -1;
+  mix-blend-mode: multiply;
+  animation: interference 0.1s infinite;
+}
+
+/*
+ * Pseudo-elemento ::after del body agrega gradientes radiales
+ * que crean "puntos calientes" de color para profundidad visual.
+ */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background:
+    repeating-linear-gradient(
+      90deg, 
+      rgba(153, 102, 204, 0.02) 0px, 
+      rgba(153, 102, 204, 0.02) 14px, 
+      transparent 14px, 
+      transparent 28px
+    ),
+    repeating-linear-gradient(
+      0deg, 
+      rgba(142, 69, 133, 0.02) 0px, 
+      rgba(142, 69, 133, 0.02) 12px, 
+      transparent 12px, 
+      transparent 24px
+    ),
+    repeating-linear-gradient(
+      45deg, 
+      rgba(57, 255, 122, 0.015) 0px, 
+      rgba(57, 255, 122, 0.015) 16px, 
+      transparent 16px, 
+      transparent 32px
+    ),
+    radial-gradient(
+      circle at 20% 50%, 
+      rgba(153, 102, 204, 0.015) 0%, 
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%, 
+      rgba(142, 69, 133, 0.015) 0%, 
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 20%, 
+      rgba(57, 255, 122, 0.01) 0%, 
+      transparent 50%
+    );
+
+  pointer-events: none;
+  z-index: -1;
+  mix-blend-mode: screen;
+}
+
+/* Animación del fondo glitch */
+@keyframes glitch-bg {
+  0%, 100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 8px -4px;
+  }
+}
+
+/* Animación de interferencia - desplazamiento rápido */
+@keyframes interference {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-4px, 3px);
+  }
+  20% {
+    transform: translate(4px, -3px);
+  }
+  30% {
+    transform: translate(-3px, -4px);
+  }
+  40% {
+    transform: translate(3px, 4px);
+  }
+  50% {
+    transform: translate(-2px, 2px);
+  }
+  60% {
+    transform: translate(2px, -2px);
+  }
+  70% {
+    transform: translate(-4px, -3px);
+  }
+  80% {
+    transform: translate(4px, 3px);
+  }
+  90% {
+    transform: translate(-1px, 1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Desactivar animaciones en modo económico */
+body.animations-disabled {
+  animation: none !important;
+}
+
+body.animations-disabled * {
+  animation: none !important;
+}
+
+body.animations-disabled::before,
+body.animations-disabled::after {
+  animation: none !important;
+}
+
+/* Scroll bar customizado */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--borde);
+}

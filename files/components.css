@@ -1,0 +1,412 @@
+/*
+ * YT // GLITCH PLAYER - Component Styles
+ * Estilos para todos los componentes visuales reutilizables:
+ * botones, inputs, cards, badges, etc. Cada componente tiene
+ * estados (hover, active) y transiciones suaves.
+ */
+
+/* ========== INPUTS Y TEXTAREAS ========== */
+
+input[type="text"],
+input[type="url"] {
+  background: rgba(18, 26, 19, 0.7);
+  border: 1px solid var(--lila);
+  color: var(--texto);
+  padding: 9px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  border-radius: 1px;
+  transition: 0.15s;
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus {
+  outline: none;
+  border-color: var(--amatista);
+  box-shadow: 0 0 8px rgba(153, 102, 204, 0.3);
+  background: rgba(18, 26, 19, 0.9);
+}
+
+input[type="text"]::placeholder,
+input[type="url"]::placeholder {
+  color: var(--texto-dim);
+}
+
+/* Input range - barra de progreso y volumen */
+input[type="range"] {
+  flex: 1;
+  accent-color: var(--verde);
+}
+
+/* ========== BOTONES ========== */
+
+button {
+  font-family: inherit;
+}
+
+.btn {
+  background: rgba(18, 26, 19, 0.7);
+  border: 1px solid var(--borde);
+  color: var(--texto);
+  padding: 8px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 1px;
+  transition: 0.15s;
+}
+
+.btn:hover {
+  border-color: var(--lila);
+  color: var(--lila);
+  box-shadow: 0 0 6px rgba(156, 138, 164, 0.4);
+}
+
+.btn:active {
+  animation: glitch-pulse 0.2s;
+}
+
+/* Botón acentuado (acciones principales) */
+.btn.accent {
+  border-color: var(--verde-dim);
+  color: var(--verde);
+  background: rgba(57, 255, 122, 0.08);
+  box-shadow: 0 0 8px rgba(57, 255, 122, 0.2);
+}
+
+.btn.accent:hover {
+  background: rgba(57, 255, 122, 0.12);
+  box-shadow: 0 0 12px rgba(57, 255, 122, 0.35);
+}
+
+/* Botones de control en header */
+.control-btn {
+  background: rgba(156, 138, 164, 0.7);
+  border: 1px solid var(--lila);
+  color: var(--verde);
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: 0.15s;
+  flex-shrink: 0;
+}
+
+.control-btn:hover {
+  background: rgba(156, 138, 164, 0.9);
+  box-shadow: 0 0 6px rgba(156, 138, 164, 0.4);
+}
+
+.control-btn:active {
+  animation: glitch-pulse 0.2s;
+}
+
+.control-btn.active {
+  background: rgba(57, 255, 122, 0.2);
+  border-color: var(--verde);
+  color: var(--verde);
+}
+
+/* Botón flotante de toggle (queue) */
+.queue-toggle {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(156, 138, 164, 0.9);
+  border: 2px solid var(--lila);
+  color: var(--verde);
+  width: 32px;
+  height: 48px;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: 0.2s;
+  box-shadow: 0 0 12px rgba(156, 138, 164, 0.4);
+}
+
+.queue-toggle:hover {
+  background: rgba(156, 138, 164, 1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.queue-toggle.active {
+  right: 240px;
+}
+
+/* ========== PLAYLIST LIST ========== */
+
+.pl-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.pl-list li {
+  padding: 9px 10px;
+  border: 1px solid var(--borde);
+  border-radius: 1px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--texto-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  transition: 0.15s;
+  background: rgba(18, 26, 19, 0.5);
+}
+
+.pl-list li:hover {
+  border-color: var(--lila);
+  color: var(--texto);
+  background: rgba(156, 138, 164, 0.08);
+}
+
+.pl-list li.active {
+  background: linear-gradient(135deg, rgba(57, 255, 122, 0.12), rgba(153, 102, 204, 0.08));
+  border-color: var(--amatista);
+  color: var(--verde);
+  box-shadow: 0 0 8px rgba(153, 102, 204, 0.3);
+}
+
+.pl-list li .count {
+  font-size: 11px;
+  color: var(--lila);
+}
+
+.pl-list li .del {
+  opacity: 0;
+  color: var(--ciruela);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pl-list li:hover .del {
+  opacity: 1;
+}
+
+/* ========== QUEUE LIST ========== */
+
+.queue ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow-y: auto;
+}
+
+.queue li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px;
+  border: 1px solid var(--borde);
+  border-radius: 1px;
+  cursor: grab;
+  font-size: 12px;
+  background: rgba(18, 26, 19, 0.6);
+  transition: 0.15s;
+}
+
+.queue li:hover {
+  background: rgba(156, 138, 164, 0.08);
+  border-color: var(--lila);
+}
+
+.queue li.playing {
+  border-color: var(--verde-dim);
+  color: var(--verde);
+  background: rgba(57, 255, 122, 0.08);
+  box-shadow: 0 0 8px rgba(57, 255, 122, 0.2);
+}
+
+.queue li.dragover {
+  border-color: var(--amatista);
+  background: rgba(153, 102, 204, 0.12);
+}
+
+.queue li img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+  border: 1px solid var(--lila);
+}
+
+.queue li .meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.queue li .meta .t {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.queue li .meta .a {
+  font-size: 9px;
+  color: var(--lila);
+  margin-top: 2px;
+}
+
+.queue li .action {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+}
+
+.queue li:hover .action {
+  opacity: 1;
+}
+
+.queue li .action button {
+  background: none;
+  border: 1px solid var(--ciruela);
+  color: var(--ciruela);
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  font-size: 11px;
+  cursor: pointer;
+  border-radius: 1px;
+  transition: 0.1s;
+}
+
+.queue li .action button:hover {
+  background: rgba(142, 69, 133, 0.2);
+  box-shadow: 0 0 4px rgba(142, 69, 133, 0.4);
+}
+
+.queue li .rm {
+  color: var(--ciruela);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* ========== TRACK INFO ========== */
+
+.track-info .title {
+  font-size: 22px;
+  color: var(--verde);
+  word-break: break-word;
+  text-shadow: 0 0 8px rgba(57, 255, 122, 0.2);
+}
+
+.track-info .author {
+  font-size: 15px;
+  color: var(--lila);
+  margin-top: 6px;
+  text-shadow: 0 0 4px rgba(156, 138, 164, 0.2);
+}
+
+.cover-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.05) saturate(1.1);
+  image-rendering: pixelated;
+}
+
+.cover-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.cover-wrap .noimg {
+  font-size: 120px;
+  color: var(--verde-dim);
+}
+
+/* ========== NAVEGACIÓN ANTERIOR/SIGUIENTE ========== */
+
+.nav-label {
+  font-size: 11px;
+  color: var(--amatista);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.nav-track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid var(--borde);
+  border-radius: 2px;
+  background: rgba(18, 26, 19, 0.6);
+  min-height: 60px;
+}
+
+.nav-track.empty {
+  justify-content: center;
+  color: var(--lila);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-track img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border: 1px solid var(--lila);
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+.nav-track .info {
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-track .title {
+  color: var(--verde);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-track .author {
+  color: var(--lila);
+  font-size: 10px;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========== HINTS Y LABELS ========== */
+
+.hint {
+  font-size: 13px;
+  color: var(--lila);
+  text-align: center;
+  max-width: 540px;
+  line-height: 1.5;
+  text-shadow: 0 0 4px rgba(156, 138, 164, 0.15);
+}

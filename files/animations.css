@@ -1,0 +1,250 @@
+/*
+ * YT // GLITCH PLAYER - Animations
+ * Define todas las animaciones: efecto glitch del título, pulsos,
+ * lluvia ASCII en modo hacker, y transiciones visuales.
+ * Las animaciones pueden desactivarse globalmente con body.animations-disabled
+ */
+
+/* ========== GLITCH TEXT EFFECT ========== */
+
+/*
+ * El elemento .glitch crea un efecto de distorsión tipo CRT
+ * usando dos capas de pseudo-elementos que se desplazan
+ * irregularmente con offset de color (Amatista y Ciruela).
+ */
+
+.glitch {
+  position: relative;
+  font-family: 'VT323', monospace;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(57, 255, 122, 0.25);
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.glitch::before {
+  color: var(--amatista);
+  clip-path: inset(0 0 65% 0);
+  transform: translate(-3px, -2px);
+  opacity: 0.8;
+  animation: glitch-a 2.8s infinite steps(3, end);
+  text-shadow: 2px 2px 0px rgba(153, 102, 204, 0.6);
+}
+
+.glitch::after {
+  color: var(--ciruela);
+  clip-path: inset(65% 0 0 0);
+  transform: translate(3px, 2px);
+  opacity: 0.8;
+  animation: glitch-b 2.4s infinite steps(3, end);
+  text-shadow: -2px -2px 0px rgba(142, 69, 133, 0.6);
+}
+
+/* Variación 1: Desplazamiento hacia arriba-izquierda */
+@keyframes glitch-a {
+  0%, 85%, 100% {
+    transform: translate(-3px, -2px);
+  }
+  88% {
+    transform: translate(4px, 2px);
+  }
+  90% {
+    transform: translate(-5px, 1px);
+  }
+  92% {
+    transform: translate(3px, -3px);
+  }
+  95% {
+    transform: translate(-2px, 2px);
+  }
+}
+
+/* Variación 2: Desplazamiento hacia abajo-derecha */
+@keyframes glitch-b {
+  0%, 82%, 100% {
+    transform: translate(3px, 2px);
+  }
+  85% {
+    transform: translate(-4px, -2px);
+  }
+  88% {
+    transform: translate(5px, -1px);
+  }
+  91% {
+    transform: translate(-3px, 3px);
+  }
+  94% {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* ========== GLITCH PULSE - Click Effect ========== */
+
+/*
+ * Efecto de clip-path fragmentado cuando se hace clic en botones.
+ * Simula "rotura" digital en el elemento.
+ */
+
+@keyframes glitch-click {
+  0%, 100% {
+    clip-path: inset(0);
+  }
+  20% {
+    clip-path: inset(30% 0 70% 0);
+  }
+  40% {
+    clip-path: inset(0 0 0 50%);
+  }
+  60% {
+    clip-path: inset(60% 30% 0 0);
+  }
+  80% {
+    clip-path: inset(0 60% 40% 0);
+  }
+}
+
+.glitch-pulse {
+  animation: glitch-click 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ========== ASCII HACKER MODE ========== */
+
+/*
+ * En modo ASCII Hacker, el fondo se reemplaza con:
+ * 1. Lluvia de caracteres (en ::before del body)
+ * 2. Patrón estático ASCII (en ::after del body)
+ * 3. El glitch del título cambia a caracteres aleatorios
+ */
+
+body.ascii-mode::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(156, 138, 164, 0.04) 4px,
+    transparent 8px,
+    transparent 40px
+  );
+  z-index: -1;
+  pointer-events: none;
+  animation: ascii-rain 2s infinite linear;
+}
+
+body.ascii-mode::after {
+  content: "░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█░░▓▒╪╫╬█";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'VT323', monospace;
+  font-size: 28px;
+  color: rgba(156, 138, 164, 0.08);
+  line-height: 1.5;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  z-index: -1;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* Animación de lluvia ASCII - desplazamiento vertical */
+@keyframes ascii-rain {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 200px;
+  }
+}
+
+/* Glitch en modo ASCII - cambia a caracteres random */
+.glitch.ascii-mode::before,
+.glitch.ascii-mode::after {
+  animation: ascii-glitch 0.15s infinite;
+}
+
+@keyframes ascii-glitch {
+  0%, 100% {
+    content: attr(data-text);
+  }
+  10% {
+    content: attr(data-ascii-1);
+  }
+  20% {
+    content: attr(data-ascii-2);
+  }
+  30% {
+    content: attr(data-ascii-3);
+  }
+  40% {
+    content: attr(data-ascii-4);
+  }
+  50% {
+    content: attr(data-ascii-5);
+  }
+  60% {
+    content: attr(data-ascii-6);
+  }
+  70% {
+    content: attr(data-ascii-7);
+  }
+  80% {
+    content: attr(data-ascii-8);
+  }
+  90% {
+    content: attr(data-ascii-9);
+  }
+}
+
+/* ========== SPIN ANIMATION ========== */
+
+/*
+ * Usada para el indicador de carga (spinner).
+ * Rotación continua de 360 grados.
+ */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Indicador de carga - spinner animado */
+.loading {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--amatista);
+  text-shadow: 0 0 6px rgba(153, 102, 204, 0.3);
+}
+
+.loading.active {
+  display: flex;
+}
+
+.loading::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--amatista);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
