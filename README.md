@@ -26,6 +26,13 @@ Reproductor web de listas de reproducción de YouTube con interfaz digital glitc
 - **Diseño responsive**: Interfaz adaptable a diferentes tamaños de pantalla
 - **Estética glitch**: Tipografía digital robótica, degradados glitcheados, scanlines y animaciones pixeladas
 - **Indicador de carga**: Muestra cuando está descargando los metadatos del video desde YouTube
+- **Sistema de historial y estadísticas**: Registra cada reproducción con timestamp, muestra plays totales, minutos escuchados, tema y autor más escuchados, promedio de minutos por tema
+- **Panel de historial expandible**: Accesible desde la sidebar izquierda, lista todos los temas reproducidos con opción de copiar links
+- **Cola collapsible**: Toglea la cola derecha con botón flotante (▶/◀) para más espacio en pantalla
+- **Controles de visualización**:
+  - **Botón −**: Reducir tamaño de letra (hasta 80%)
+  - **Botón +**: Aumentar tamaño de letra (hasta 150%)
+  - **Botón ◊/◆/●**: Ciclar entre 3 modos de animaciones — Glitch normal (◊), Modo Hacker ASCII con lluvia de caracteres (◆), o Animaciones desactivadas (●) para reducir consumo de RAM
 
 ---
 
