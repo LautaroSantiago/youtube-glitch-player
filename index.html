@@ -303,6 +303,8 @@ button{font-family:inherit;}
       <button class="play" id="btnPlay" title="Reproducir / Pausar">▶</button>
       <button id="btnNext" title="Siguiente">⏭</button>
       <button class="loop" id="btnLoop" title="Bucle">⟲</button>
+      <button id="btnOneshot" title="Repetir tema actual">⟲1</button>
+      <button id="btnShuffle" title="Desorden aleatorio (no se guarda)">🔀</button>
     </div>
 
     <div class="vol">
@@ -330,7 +332,9 @@ let state = {
   playlists: {},      // { nombre: [ {videoId,url,title,author,thumb} ] }
   current: null,       // nombre de lista activa
   index: -1,            // indice del tema sonando dentro de la lista activa
-  loop: 'none'          // none | one | all
+  loop: 'none',         // none | one | all
+  shuffled: false,      // si está en modo shuffle (no se guarda)
+  shuffleOrder: []      // orden shuffled (no se guarda)
 };
 
 function loadState(){
@@ -626,18 +630,42 @@ function stopPlayback(){
 function goNext(fromEnd){
   const tracks = state.playlists[state.current] || [];
   if(tracks.length === 0) return;
-  let next = state.index + 1;
-  if(next >= tracks.length){
-    if(state.loop === 'all') next = 0;
-    else { stopSeekLoop(); document.getElementById('btnPlay').textContent = '▶'; return; }
+  
+  let next;
+  if(state.shuffled){
+    // En modo shuffle: siguiente índice en el array shuffleOrder
+    const currentPosInShuffle = state.shuffleOrder.indexOf(state.index);
+    if(currentPosInShuffle === -1 || currentPosInShuffle >= state.shuffleOrder.length - 1){
+      if(state.loop === 'all') next = state.shuffleOrder[0];
+      else { stopSeekLoop(); document.getElementById('btnPlay').textContent = '▶'; return; }
+    } else {
+      next = state.shuffleOrder[currentPosInShuffle + 1];
+    }
+  } else {
+    next = state.index + 1;
+    if(next >= tracks.length){
+      if(state.loop === 'all') next = 0;
+      else { stopSeekLoop(); document.getElementById('btnPlay').textContent = '▶'; return; }
+    }
   }
   playIndex(next);
 }
 function goPrev(){
   const tracks = state.playlists[state.current] || [];
   if(tracks.length === 0) return;
-  let prev = state.index - 1;
-  if(prev < 0) prev = state.loop === 'all' ? tracks.length - 1 : 0;
+  
+  let prev;
+  if(state.shuffled){
+    const currentPosInShuffle = state.shuffleOrder.indexOf(state.index);
+    if(currentPosInShuffle <= 0){
+      prev = state.loop === 'all' ? state.shuffleOrder[state.shuffleOrder.length - 1] : state.shuffleOrder[0];
+    } else {
+      prev = state.shuffleOrder[currentPosInShuffle - 1];
+    }
+  } else {
+    prev = state.index - 1;
+    if(prev < 0) prev = state.loop === 'all' ? tracks.length - 1 : 0;
+  }
   playIndex(prev);
 }
 
@@ -658,6 +686,42 @@ document.getElementById('btnLoop').addEventListener('click', () => {
   btn.classList.toggle('active', state.loop !== 'none');
   btn.textContent = state.loop === 'one' ? '⟲1' : '⟲';
   btn.title = state.loop === 'none' ? 'Bucle: apagado' : state.loop === 'all' ? 'Bucle: toda la lista' : 'Bucle: tema actual';
+});
+
+document.getElementById('btnOneshot').addEventListener('click', () => {
+  if(!ytReady || state.index === -1) return;
+  ytPlayer.seekTo(0);
+  ytPlayer.playVideo();
+  const btn = document.getElementById('btnOneshot');
+  btn.classList.add('glitch-pulse');
+  setTimeout(() => btn.classList.remove('glitch-pulse'), 350);
+});
+
+document.getElementById('btnShuffle').addEventListener('click', () => {
+  const tracks = state.playlists[state.current] || [];
+  if(tracks.length <= 1) return;
+  
+  state.shuffled = !state.shuffled;
+  const btn = document.getElementById('btnShuffle');
+  
+  if(state.shuffled){
+    // Generar orden random (Fisher-Yates)
+    state.shuffleOrder = Array.from({length: tracks.length}, (_, i) => i);
+    for(let i = state.shuffleOrder.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [state.shuffleOrder[i], state.shuffleOrder[j]] = [state.shuffleOrder[j], state.shuffleOrder[i]];
+    }
+    btn.classList.add('active');
+    btn.title = 'Shuffle: activado (desorden aleatorio)';
+  } else {
+    state.shuffleOrder = [];
+    btn.classList.remove('active');
+    btn.title = 'Shuffle: desactivado';
+  }
+  
+  btn.classList.add('glitch-pulse');
+  setTimeout(() => btn.classList.remove('glitch-pulse'), 350);
+  renderQueue();
 });
 
 document.getElementById('volBar').addEventListener('input', (e) => {
