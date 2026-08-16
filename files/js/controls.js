@@ -408,18 +408,30 @@ function initControls() {
     });
   });
 
-  // Ciclo de 3 estados: normal → ASCII → disabled
-  let animationState = 0;
-  document.getElementById('btnToggleAnimations').addEventListener('click', () => {
+  // Botón PAUSA - Detiene todas las animaciones directamente
+  document.getElementById('btnPauseAnimations').addEventListener('click', () => {
     const body = document.body;
-    const btn = document.getElementById('btnToggleAnimations');
+    const btn = document.getElementById('btnPauseAnimations');
+
+    body.classList.toggle('animations-disabled');
+    btn.classList.toggle('active');
+  });
+
+  // Botón CICLO - Alterna entre glitch normal → ASCII → glitch normal
+  let animationState = 0;
+  document.getElementById('btnCycleAnimations').addEventListener('click', () => {
+    const body = document.body;
+    const btn = document.getElementById('btnCycleAnimations');
     const glitchEl = document.querySelector('.glitch');
 
-    animationState = (animationState + 1) % 3;
+    // Primero remover animaciones-disabled si está activo
+    body.classList.remove('animations-disabled');
+    document.getElementById('btnPauseAnimations').classList.remove('active');
 
-    body.classList.remove('animations-disabled', 'ascii-mode');
+    animationState = (animationState + 1) % 2;
+
+    body.classList.remove('ascii-mode');
     glitchEl?.classList.remove('ascii-mode');
-    btn.classList.remove('active');
     btn.textContent = '◊';
     btn.style.color = 'var(--verde)';
 
@@ -430,11 +442,6 @@ function initControls() {
       generarAsciiData(glitchEl);
       btn.textContent = '◆';
       btn.style.color = 'var(--amatista)';
-    } else if (animationState === 2) {
-      // Animaciones desactivadas
-      body.classList.add('animations-disabled');
-      btn.classList.add('active');
-      btn.textContent = '●';
     }
   });
 
