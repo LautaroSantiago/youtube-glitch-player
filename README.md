@@ -2,7 +2,8 @@
 
 Reproductor web de listas de reproducción de YouTube con interfaz digital glitch. Crea, organiza y exporta tus listas de música directamente desde el navegador sin dependencias externas.
 
-[![Open Demo](https://img.shields.io/badge/demo-open_in_github-39ff7a?style=for-the-badge&logo=github)](https://github.com/LautaroSantiago/youtube-glitch-player/blob/master/index.html)
+[![Live Demo](https://img.shields.io/badge/🎵_play_now-39ff7a?style=for-the-badge&labelColor=070a08)](https://LautaroSantiago.github.io/youtube-glitch-player/)
+[![View Code](https://img.shields.io/badge/view_code-github-39ff7a?style=for-the-badge&logo=github)](https://github.com/LautaroSantiago/youtube-glitch-player/blob/master/index.html)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/es/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/es/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/es/docs/Web/JavaScript)
