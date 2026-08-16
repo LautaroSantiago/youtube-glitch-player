@@ -236,8 +236,3 @@ https://github.com/LautaroSantiago/youtube-glitch-player
 - 🖥️ **Entorno**: Linux Mint MATE + Terminal (Bash, Git, Vim)
 - 🛠️ **Stack**: HTML5 • CSS3 • JavaScript Vanilla • YouTube API
 
-**Hecho con 💚 y glitch aesthetic**
-
----
-
-*Última actualización: Agosto 2024*
