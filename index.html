@@ -402,10 +402,23 @@ main{
 .app.sidebar-hidden .sidebar-toggle{opacity:1;pointer-events:all;}
 .sidebar-toggle:hover{background:rgba(156,138,164,1);transform:translateY(-50%) scale(1.1);}
 .app.sidebar-hidden .sidebar-toggle.active{left:0;}
-/* ---------- nav controls */
+/* ---------- nav controls ---------- */
 .nav-controls{
-  display:none;
+  width:100%;max-width:540px;display:flex;justify-content:space-between;gap:16px;
 }
+.nav-section{display:flex;flex-direction:column;gap:6px;flex:1;}
+.nav-label{font-size:11px;color:var(--amatista);letter-spacing:1px;text-transform:uppercase;font-weight:bold;}
+.nav-track{
+  display:flex;align-items:center;gap:10px;
+  padding:8px;border:1px solid var(--borde);border-radius:2px;
+  background:rgba(18,26,19,0.6);
+  min-height:60px;
+}
+.nav-track.empty{justify-content:center;color:var(--lila);font-size:12px;font-weight:bold;letter-spacing:1px;}
+.nav-track img{width:50px;height:50px;object-fit:cover;border:1px solid var(--lila);image-rendering:pixelated;flex-shrink:0;}
+.nav-track .info{flex:1;min-width:0;}
+.nav-track .title{color:var(--verde);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-track .author{color:var(--lila);font-size:10px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .nav-track{
   display:flex;align-items:center;gap:12px;
   padding:10px;border:1px solid var(--borde);border-radius:2px;
@@ -511,6 +524,17 @@ button{font-family:inherit;}
     <div class="vol">
       vol
       <input type="range" id="volBar" min="0" max="100" value="80">
+    </div>
+
+    <div class="nav-controls">
+      <div class="nav-section">
+        <div class="nav-label">[PREVIOUS]</div>
+        <div class="nav-track empty" id="prevTrack">[START]</div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label">[NEXT]</div>
+        <div class="nav-track empty" id="nextTrack">[END]</div>
+      </div>
     </div>
 
     <div class="hint">La reproducción usa el reproductor embebido de YouTube (audio + video oculto). El progreso se guarda solo en este navegador — exportá el archivo si querés llevarte la lista.</div>
